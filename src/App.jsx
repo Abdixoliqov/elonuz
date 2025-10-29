@@ -1,13 +1,29 @@
 import { useState } from 'react'
 
 import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import MainLayout from './layouts/MainLayout'
+import Home from './pages/Home'
 
 function App() {
+
+
+  const routes = createBrowserRouter([
+    {
+      path: '/',
+      element: <MainLayout />,
+      children: [
+        {
+          index: true,
+          element: <Home />
+        },
+
+      ]
+    }
+  ])
   return (
     <>
-      <div className="mt-1 text-2xl font-bold">
-        E'lon uz
-      </div>
+      <RouterProvider router={routes} />
     </>
   )
 }

@@ -1,2 +1,10 @@
-@import "tailwindcss";
-@plugin "daisyui";
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes: light;
+}
+
+.container {
+  /* @apply max-w-[1800px] mx-auto px-2 sm:px-5 md:px-20 */
+  @apply mx-auto max-w-[1200px] px-2 sm:px-5 md:px-10;
+}
+

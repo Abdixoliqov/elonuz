@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
    server: {
     host: '10.0.1.36', // IP manzilni o'zingizning tarmoq IP'siga moslang
-    port: 5173, // Portni istalgan raqamga o'zgartirishingiz mumkin
+    port: 5174, // Portni istalgan raqamga o'zgartirishingiz mumkin
     strictPort: true, // Port band bo'lsa, boshqa portga o'tmasligi uchun
     open: false, // Avtomatik brauzerda ochmasligi uchun
   },
