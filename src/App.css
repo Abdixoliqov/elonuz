@@ -8,3 +8,16 @@
   @apply mx-auto max-w-[1200px] px-2 sm:px-5 md:px-10;
 }
 
+html,
+body,
+#root {
+  @apply h-full;
+}
+
+#root {
+  @apply flex flex-col;
+}
+
+main {
+  @apply grow;
+}

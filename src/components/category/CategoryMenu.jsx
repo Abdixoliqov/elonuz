@@ -3,7 +3,7 @@ function CategoryMenu() {
         <div className="my-8">
             <h2 className="font-bold text-lg md:text-2xl xl:text-3xl text-center mb-5">Kategoriya</h2>
             <div className="flex flex-wrap justify-start gap-8">
-                <div className=" flex flex-col items-center">
+                <div className=" flex flex-col items-center cursor-pointer">
                     <div className="w-[100px] bg-amber-200 rounded-full outline-none">
                         <img src="category.png" alt="avatar category" />
                     </div>

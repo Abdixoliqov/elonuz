@@ -3,15 +3,19 @@ import { BiSearch } from 'react-icons/bi'
 import { FaUser } from 'react-icons/fa'
 import { FiMenu, FiX } from 'react-icons/fi'
 import { FaRegHeart } from 'react-icons/fa'
+import { IoLogOutOutline, IoSettingsOutline } from 'react-icons/io5'
+import { Link } from 'react-router-dom'
 function Navbar() {
   const [open, setOpen] = useState(false)
   return (
     <div className="container">
       <div className="flex items-center justify-between border-b border-b-gray-200 py-5">
         <div className="flex gap-4">
-          <div>
+          <Link to={'/'}>
+            <div>
             <img src="logo.svg" alt="logo" />
           </div>
+          </Link>
 
           <button
             onClick={() => setOpen(!open)}
@@ -56,12 +60,45 @@ function Navbar() {
               </a>
             </li>
           </ul>
-          <div className="rounded-md border-2 border-gray-200 p-2">
-            <FaUser className="text-lg text-gray-700" />
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="cursor-pointer rounded-md border-2 border-gray-200 p-2"
+            >
+              <div className="">
+                <FaUser className="text-lg text-gray-700" />
+                {/* <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                /> */}
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-md dropdown-content z-40 mt-3 w-40 rounded-md border border-[#f1f1f1] bg-[#f1f1f1] bg-slate-50 p-2 shadow"
+            >
+              <li className="mb-2 hover:bg-gray-200 transition duration-300 rounded-md">
+                <div className="flex items-center gap-2">
+                  <IoSettingsOutline size={20} />
+                  <a>Settings</a>
+                </div>
+              </li>
+              <li className="hover:bg-gray-200 transition duration-300 rounded-md">
+                <div className="flex items-center gap-2">
+                  <IoLogOutOutline size={20} />
+                  <a>Chiqish</a>
+                </div>
+              </li>
+            </ul>
           </div>
-          <div className="rounded-md border-2 border-gray-200 p-2">
+          {/* change popover-1 and --anchor-1 names. Use unique names for each dropdown */}
+          {/* For TSX uncomment the commented types below */}
+          <Link to={'/favorites'}>
+          <div className="rounded-md border-2 border-gray-200 p-2 cursor-pointer">
             <FaRegHeart className="text-lg text-gray-900" />
           </div>
+          </Link>
         </div>
       </div>
     </div>
