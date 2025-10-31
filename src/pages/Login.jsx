@@ -17,7 +17,7 @@ export default function Login() {
             </h2>
 
             {/* Google bilan kirish */}
-            <button className="mb-6 flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 py-3 transition hover:bg-gray-50">
+            <button className="mb-6 flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-gray-300 py-3 transition hover:bg-gray-50">
               <FcGoogle size={22} />
               <span>Google bilan kirish</span>
             </button>
@@ -75,7 +75,7 @@ export default function Login() {
 
         {/* O‘ng tomondagi rasm */}
         <div className="hidden justify-center md:flex">
-          <img src="logo.svg" alt="Login illustration" className="w-[80%] max-w-md" />
+          <img src="login_bg4.jpg" alt="Login illustration" className="w-[80%] max-w-md" />
         </div>
       </div>
     </div>

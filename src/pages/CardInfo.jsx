@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   AiOutlineHeart,
   AiFillEye,
@@ -10,7 +10,7 @@ import { FaTelegramPlane, FaFacebookF, FaTwitter } from 'react-icons/fa'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Keyboard } from 'swiper/modules'
 import 'swiper/css'
-import 'swiper/swiper-bundle.css'
+import 'swiper/css/navigation'
 
 function CardInfo({
   images = [],
@@ -31,6 +31,9 @@ function CardInfo({
   const [activeImage, setActiveImage] = useState(mainImage)
   const shareUrl = window.location.href
 
+  const prevRef = useRef(null)
+  const nextRef = useRef(null)
+
   const handleShare = (platform) => {
     const text = `Siz bilan "${title}" elonini ulashmoqchiman: ${shareUrl}`
     if (platform === 'telegram')
@@ -46,18 +49,10 @@ function CardInfo({
     setFullscreen(true)
   }
 
-  /** --- Thumbnail Swiper controls --- **/
-  const prevRef = useRef(null)
-  const nextRef = useRef(null)
-  const swiperRef = useRef(null)
-
   useEffect(() => {
-    if (swiperRef.current && swiperRef.current.params) {
-      swiperRef.current.params.navigation.prevEl = prevRef.current
-      swiperRef.current.params.navigation.nextEl = nextRef.current
-      swiperRef.current.navigation.init()
-      swiperRef.current.navigation.update()
-    }
+    // DOM tugmalar joylashganini kutish uchun kichik delay
+    const timer = setTimeout(() => {}, 100)
+    return () => clearTimeout(timer)
   }, [])
 
   return (
@@ -65,54 +60,42 @@ function CardInfo({
       <div className="bg-base-100 mx-auto max-w-5xl rounded-xl border border-gray-200 p-5 sm:p-8">
         {/* Image Gallery Section */}
         <div className="flex flex-col md:flex-row gap-5">
-          {/* Thumbnail Section */}
+          {/* Thumbnail Swiper with buttons */}
           {images.length > 1 && (
-            <div className="relative flex md:flex-col gap-3 md:w-1/4">
+            <div className="md:w-1/4 flex md:flex-col gap-3 relative items-center">
               {images.length > 3 ? (
-                <>
-                  <Swiper
-                    direction="vertical"
-                    slidesPerView={3}
-                    spaceBetween={10}
-                    modules={[Navigation]}
-                    onSwiper={(swiper) => (swiperRef.current = swiper)}
-                    className="h-80"
-                  >
-                    {images.map((img, idx) => (
-                      <SwiperSlide key={idx}>
-                        <img
-                          src={img}
-                          alt={`thumb-${idx}`}
-                          onClick={() => setMainImage(img)}
-                          className={`h-24 w-24 cursor-pointer rounded-md border object-cover transition hover:opacity-80 ${
-                            mainImage === img ? 'border-[#06b18f]' : 'border-gray-200'
-                          }`}
-                        />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-
-                  {/* Navigation Buttons */}
-                  <button
-                    ref={prevRef}
-                    className="absolute -top-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white px-2 py-1 text-[#06b18f] hover:bg-[#06b18f] hover:text-white transition"
-                  >
-                    ↑
-                  </button>
-                  <button
-                    ref={nextRef}
-                    className="absolute -bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white px-2 py-1 text-[#06b18f] hover:bg-[#06b18f] hover:text-white transition"
-                  >
-                    ↓
-                  </button>
-                </>
+                <Swiper
+                  direction="vertical"
+                  slidesPerView={3}
+                  spaceBetween={10}
+                  onInit={(swiper) => {
+                    // Tugmalarni init paytida ulash
+                    swiper.params.navigation.prevEl = prevRef.current
+                    swiper.params.navigation.nextEl = nextRef.current
+                    swiper.navigation.init()
+                    swiper.navigation.update()
+                  }}
+                  modules={[Navigation]}
+                  className="h-80"
+                >
+                  {images.map((img, idx) => (
+                    <SwiperSlide key={idx}>
+                      <img
+                        src={img}
+                        onClick={() => setMainImage(img)}
+                        className={`h-24 w-24 cursor-pointer rounded-md border object-cover transition hover:opacity-80 ${
+                          mainImage === img ? 'border-[#06b18f]' : 'border-gray-200'
+                        }`}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               ) : (
                 <div className="flex md:flex-col gap-3">
                   {images.map((img, idx) => (
                     <img
                       key={idx}
                       src={img}
-                      alt={`thumb-${idx}`}
                       onClick={() => setMainImage(img)}
                       className={`h-24 w-24 cursor-pointer rounded-md border object-cover transition hover:opacity-80 ${
                         mainImage === img ? 'border-[#06b18f]' : 'border-gray-200'
@@ -120,6 +103,24 @@ function CardInfo({
                     />
                   ))}
                 </div>
+              )}
+
+              {/* Navigation buttons */}
+              {images.length > 3 && (
+                <>
+                  <button
+                    ref={prevRef}
+                    className="absolute -top-5 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white p-1 border border-[#06b18f] text-[#06b18f] hover:bg-[#06b18f] hover:text-white transition"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    ref={nextRef}
+                    className="absolute -bottom-5 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white p-1 border border-[#06b18f] text-[#06b18f] hover:bg-[#06b18f] hover:text-white transition"
+                  >
+                    ↓
+                  </button>
+                </>
               )}
             </div>
           )}
@@ -147,7 +148,7 @@ function CardInfo({
           </div>
         </div>
 
-        {/* Info */}
+        {/* Info Section */}
         <div className="mt-6 space-y-5">
           {/* Title & Price */}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -182,7 +183,7 @@ function CardInfo({
             )}
           </div>
 
-          {/* Rating */}
+          {/* Reyting */}
           <div className="flex items-center gap-1 text-[#06b18f]">
             {[1, 2, 3, 4, 5].map((star) =>
               star <= rating ? (
@@ -240,7 +241,7 @@ function CardInfo({
         </div>
       </div>
 
-      {/* Fullscreen Image Modal */}
+      {/* Fullscreen Modal */}
       {fullscreen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
           <button

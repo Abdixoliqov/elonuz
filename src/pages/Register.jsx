@@ -120,8 +120,8 @@ export default function Register() {
         </div>
 
         {/* O‘ng tomondagi rasm */}
-        <div className="hidden justify-center md:flex">
-          <img src="logo.svg" alt="Register illustration" className="w-[80%] max-w-md" />
+        <div className="hidden justify-center md:flex bg-amber-200">
+          <img src="login_bg4.jpg" alt="Register illustration" className="w-[100%]" />
         </div>
       </div>
     </div>

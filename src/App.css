@@ -21,3 +21,56 @@ body,
 main {
   @apply grow;
 }
+
+
+/* swiper */
+/* Swiper asosiy CSS (agar import qilinmagan boʻlsa ham) */
+.swiper {
+  position: relative;
+}
+
+/* Prev / Next tugmalarni stil qiladi */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: white;
+  color: #06b18f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none; /* siz shadow ishlatmaslikni xohladingiz */
+  border: 1px solid rgba(6,177,143,0.15);
+}
+
+/* Hover holat */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #06b18f;
+  color: white;
+}
+
+/* Agar Swiper pseudo-elementlari ishlatilsa (baʼzi versiyalarda uchraydi) */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 16px; /* belgilar kattaligi */
+}
+
+/* Agar siz custom prev/next (thumb-prev/thumb-next) ishlatgan bo'lsangiz: */
+.thumb-prev,
+.thumb-next {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: white;
+  color: #06b18f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(6,177,143,0.15);
+}
+.thumb-prev:hover, .thumb-next:hover {
+  background: #06b18f;
+  color: #fff;
+}
