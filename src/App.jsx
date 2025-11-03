@@ -10,9 +10,14 @@ import Register from './pages/Register'
 import Favorites from './pages/Favorites'
 import ElonOferta from './pages/ElonOferta'
 import CardInfo from './pages/CardInfo'
+import { useSelector } from 'react-redux'
 
 function App() {
-  const user = true // bu yerda haqiqiy autentifikatsiya holatini tekshirish kerak
+  const {user} = useSelector(state=>state.auth) // bu yerda haqiqiy autentifikatsiya holatini tekshirish kerak
+  // const {user}=useSelector(state=>state.auth)
+
+  console.log(user, 'user');
+  
 
   const adDetail = {
   id: 1,

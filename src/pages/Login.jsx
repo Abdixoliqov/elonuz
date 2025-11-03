@@ -1,22 +1,27 @@
 import React, { useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { signUserSuccess } from '../features/auth/authSlice'
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
+  const dispatch = useDispatch()
+
+  const handleClick = () => {
+    dispatch(signUserSuccess('user'))
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-white font-sans">
       <div className="grid w-full max-w-5xl grid-cols-1 items-center gap-6 px-6 md:grid-cols-2">
-        {/* Chap tomondagi forma */}
         <div className="flex w-full flex-col items-center justify-center md:items-start">
           <div className="w-full max-w-sm">
             <h2 className="mb-6 text-center text-2xl font-semibold text-gray-800 md:text-left">
               Tizimga kirish
             </h2>
 
-            {/* Google bilan kirish */}
             <button className="mb-6 flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-gray-300 py-3 transition hover:bg-gray-50">
               <FcGoogle size={22} />
               <span>Google bilan kirish</span>
@@ -28,7 +33,6 @@ export default function Login() {
               <div className="h-px flex-1 bg-gray-300"></div>
             </div>
 
-            {/* Email */}
             <label className="mb-1 block text-sm text-gray-600">Email</label>
             <input
               type="email"
@@ -36,7 +40,6 @@ export default function Login() {
               className="mb-4 w-full border-b-2 border-gray-300 py-2 transition outline-none focus:border-green-500"
             />
 
-            {/* Parol */}
             <label className="mb-1 block text-sm text-gray-600">Parol</label>
             <div className="relative mb-6">
               <input
@@ -53,8 +56,10 @@ export default function Login() {
               </button>
             </div>
 
-            {/* Kirish tugmasi */}
-            <button className="mb-4 w-full rounded-md bg-green-500 py-3 font-medium text-white transition hover:bg-green-600">
+            <button
+              onClick={handleClick}
+              className="mb-4 w-full rounded-md bg-green-500 py-3 font-medium text-white transition hover:bg-green-600"
+            >
               Kirish
             </button>
 
@@ -73,7 +78,6 @@ export default function Login() {
           </div>
         </div>
 
-        {/* O‘ng tomondagi rasm */}
         <div className="hidden justify-center md:flex">
           <img src="login_bg4.jpg" alt="Login illustration" className="w-[80%] max-w-md" />
         </div>

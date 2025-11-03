@@ -1,276 +1,54 @@
-import { useEffect, useRef, useState } from 'react'
-import {
-  AiOutlineHeart,
-  AiFillEye,
-  AiFillStar,
-  AiOutlineStar,
-  AiOutlineClose,
-} from 'react-icons/ai'
-import { FaTelegramPlane, FaFacebookF, FaTwitter } from 'react-icons/fa'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Keyboard } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/swiper-bundle.css'
+import { AiOutlineHeart } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
-function CardInfo({
-  images = [],
-  title,
-  price,
-  currency,
-  description,
-  location,
-  condition,
-  isPremium,
-  views,
-  contacts,
-  created,
-  rating = 4,
-}) {
-  const [mainImage, setMainImage] = useState(images[0])
-  const [fullscreen, setFullscreen] = useState(false)
-  const [activeImage, setActiveImage] = useState(mainImage)
-  const shareUrl = window.location.href
-
-  const handleShare = (platform) => {
-    const text = `Siz bilan "${title}" elonini ulashmoqchiman: ${shareUrl}`
-    if (platform === 'telegram')
-      window.open(`https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${text}`)
-    else if (platform === 'facebook')
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`)
-    else if (platform === 'twitter')
-      window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${text}`)
-  }
-
-  const handleImageClick = (img) => {
-    setActiveImage(img)
-    setFullscreen(true)
-  }
-
-  /** --- Thumbnail Swiper controls --- **/
-  const prevRef = useRef(null)
-  const nextRef = useRef(null)
-  const swiperRef = useRef(null)
-
-  useEffect(() => {
-    if (swiperRef.current && swiperRef.current.params) {
-      swiperRef.current.params.navigation.prevEl = prevRef.current
-      swiperRef.current.params.navigation.nextEl = nextRef.current
-      swiperRef.current.navigation.init()
-      swiperRef.current.navigation.update()
-    }
-  }, [])
+function Card({ image, title, price, currency, location, condition, isPremium, views }) {
+ 
 
   return (
-    <div className="container my-8 px-3">
-      <div className="bg-base-100 mx-auto max-w-5xl rounded-xl border border-gray-200 p-5 sm:p-8">
-        {/* Image Gallery Section */}
-        <div className="flex flex-col md:flex-row gap-5">
-          {/* Thumbnail Section */}
-          {images.length > 1 && (
-            <div className="relative flex md:flex-col gap-3 md:w-1/4">
-              {images.length > 3 ? (
-                <>
-                  <Swiper
-                    direction="vertical"
-                    slidesPerView={3}
-                    spaceBetween={10}
-                    modules={[Navigation]}
-                    onSwiper={(swiper) => (swiperRef.current = swiper)}
-                    className="h-80"
-                  >
-                    {images.map((img, idx) => (
-                      <SwiperSlide key={idx}>
-                        <img
-                          src={img}
-                          alt={`thumb-${idx}`}
-                          onClick={() => setMainImage(img)}
-                          className={`h-24 w-24 cursor-pointer rounded-md border object-cover transition hover:opacity-80 ${
-                            mainImage === img ? 'border-[#06b18f]' : 'border-gray-200'
-                          }`}
-                        />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-
-                  {/* Navigation Buttons */}
-                  <button
-                    ref={prevRef}
-                    className="absolute -top-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white px-2 py-1 text-[#06b18f] hover:bg-[#06b18f] hover:text-white transition"
-                  >
-                    ↑
-                  </button>
-                  <button
-                    ref={nextRef}
-                    className="absolute -bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white px-2 py-1 text-[#06b18f] hover:bg-[#06b18f] hover:text-white transition"
-                  >
-                    ↓
-                  </button>
-                </>
-              ) : (
-                <div className="flex md:flex-col gap-3">
-                  {images.map((img, idx) => (
-                    <img
-                      key={idx}
-                      src={img}
-                      alt={`thumb-${idx}`}
-                      onClick={() => setMainImage(img)}
-                      className={`h-24 w-24 cursor-pointer rounded-md border object-cover transition hover:opacity-80 ${
-                        mainImage === img ? 'border-[#06b18f]' : 'border-gray-200'
-                      }`}
-                    />
-                  ))}
-                </div>
-              )}
+    <>
+        <Link to={'/card-info'} className="card bg-base-100 relative w-full max-w-sm rounded-md shadow-sm transition hover:shadow-md">
+          {/* Premium Badge */}
+          {isPremium && (
+            <div className="absolute top-2 left-2 rounded-md bg-[#33f3cd] px-2 py-1 text-xs font-semibold text-gray-900 shadow-md">
+              Top
             </div>
           )}
 
-          {/* Main Image */}
-          <div className="relative flex-1">
+          {/* Favourite Icon */}
+          <button className="absolute top-2 right-2 cursor-pointer rounded-full bg-white/80 p-1 shadow-sm hover:bg-white">
+            <AiOutlineHeart className="h-5 w-5 text-gray-600 transition hover:text-red-500" />
+          </button>
+
+          {/* Image */}
+          <figure className="h-48 w-full overflow-hidden rounded-t-md">
             <img
               src={
-                mainImage ||
-                images[0] ||
+                image ||
                 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp'
               }
               alt={title}
-              onClick={() => handleImageClick(mainImage)}
-              className="h-80 w-full rounded-lg object-cover sm:h-96 cursor-pointer"
+              className="h-full w-full object-cover"
             />
-            {isPremium && (
-              <div className="absolute top-3 left-3 rounded-md bg-yellow-400/90 px-3 py-1 text-xs font-semibold text-gray-900">
-                Premium
-              </div>
-            )}
-            <button className="absolute top-3 right-3 rounded-full bg-white/80 p-2 hover:bg-white">
-              <AiOutlineHeart className="h-6 w-6 text-gray-600 hover:text-red-500 transition" />
-            </button>
-          </div>
-        </div>
+          </figure>
 
-        {/* Info */}
-        <div className="mt-6 space-y-5">
-          {/* Title & Price */}
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <h1 className="text-2xl font-semibold sm:text-3xl">{title}</h1>
-            <span className="text-xl font-bold text-[#06b18f]">
-              {price ? `${price.toLocaleString()} ${currency}` : 'Narx kelishiladi'}
-            </span>
-          </div>
+          {/* Body */}
+          <div className="card-body p-4">
+            <h2 className="card-title line-clamp-2 text-base">{title}</h2>
 
-          {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-            <span>{condition}</span>
-            <span>•</span>
-            <span>{location}</span>
-            <span>•</span>
-            <div className="flex items-center gap-1">
-              <AiFillEye className="h-4 w-4" />
-              {views} marta ko‘rilgan
-            </div>
-            {created && (
-              <>
-                <span>•</span>
-                <span>
-                  Joylashtirilgan:{' '}
-                  {new Date(created).toLocaleDateString('uz-UZ', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </span>
-              </>
-            )}
-          </div>
+            <p className="text-sm text-gray-500">
+              {location} • {condition}
+            </p>
 
-          {/* Rating */}
-          <div className="flex items-center gap-1 text-[#06b18f]">
-            {[1, 2, 3, 4, 5].map((star) =>
-              star <= rating ? (
-                <AiFillStar key={star} className="h-5 w-5" />
-              ) : (
-                <AiOutlineStar key={star} className="h-5 w-5" />
-              ),
-            )}
-            <span className="ml-2 text-sm text-gray-500">{rating}/5</span>
-          </div>
-
-          {/* Description */}
-          <div>
-            <h2 className="mb-2 text-lg font-semibold">Tavsif</h2>
-            <p className="leading-relaxed text-gray-700">{description}</p>
-          </div>
-
-          {/* Contacts */}
-          {contacts && (
-            <div className="border-t pt-4">
-              <h3 className="mb-1 text-lg font-semibold">Aloqa uchun</h3>
-              <a href={`tel:${contacts}`} className="font-medium text-[#06b18f] hover:underline">
-                📞 {contacts}
-              </a>
-            </div>
-          )}
-
-          {/* Share Buttons */}
-          <div className="border-t pt-5">
-            <h3 className="mb-3 text-lg font-semibold">Ulashish</h3>
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => handleShare('telegram')}
-                className="rounded-md bg-[#06b18f] px-4 py-2 text-white hover:opacity-90"
-              >
-                <FaTelegramPlane className="inline mr-2" />
-                Telegram
-              </button>
-              <button
-                onClick={() => handleShare('facebook')}
-                className="rounded-md bg-[#06b18f] px-4 py-2 text-white hover:opacity-90"
-              >
-                <FaFacebookF className="inline mr-2" />
-                Facebook
-              </button>
-              <button
-                onClick={() => handleShare('twitter')}
-                className="rounded-md bg-[#06b18f] px-4 py-2 text-white hover:opacity-90"
-              >
-                <FaTwitter className="inline mr-2" />
-                Twitter
-              </button>
+            <div className="mt-2 flex items-center justify-between">
+              <span className="text-primary text-lg font-semibold">
+                {price ? `${price.toLocaleString()} ${currency}` : 'Narx kelishiladi'}
+              </span>
+              <span className="text-xs text-gray-400">{views} ko‘rildi</span>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Fullscreen Image Modal */}
-      {fullscreen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
-          <button
-            className="absolute top-5 right-5 text-white text-3xl"
-            onClick={() => setFullscreen(false)}
-          >
-            <AiOutlineClose />
-          </button>
-
-          <Swiper
-            initialSlide={images.indexOf(activeImage)}
-            navigation
-            keyboard
-            modules={[Navigation, Keyboard]}
-            className="max-w-[90vw] max-h-[90vh]"
-          >
-            {images.map((img, idx) => (
-              <SwiperSlide key={idx}>
-                <img
-                  src={img}
-                  alt={`Image ${idx + 1}`}
-                  className="max-h-[90vh] w-full object-contain rounded-lg"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      )}
-    </div>
+        </Link>
+    </>
   )
 }
 
-export default CardInfo
+export default Card
