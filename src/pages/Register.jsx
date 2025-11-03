@@ -106,9 +106,11 @@ export default function Register() {
             </div>
 
             {/* Ro‘yxatdan o‘tish tugmasi */}
+            <Link to={'/verify'}>
             <button className="mb-4 w-full rounded-md bg-green-500 py-3 font-medium text-white transition hover:bg-green-600">
               Ro‘yxatdan o‘tish
             </button>
+            </Link>
 
             <div className="text-center text-sm text-gray-500">
               Allaqachon ro‘yxatdan o‘tganmisiz?{' '}

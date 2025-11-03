@@ -49,9 +49,9 @@ const EmblaCarousel = ({ options }) => {
 
   return (
     <section className="max-w-7xl mx-auto px-4 my-10">
-      <h2 className="text-center font-bold text-xl md:text-2xl xl:text-3xl mb-6">
+      {/* <h2 className="text-center font-bold text-xl md:text-2xl xl:text-3xl mb-6">
         Kategoriyalar
-      </h2>
+      </h2> */}
 
       {/* Viewport */}
       <div className="overflow-hidden" ref={emblaRef}>

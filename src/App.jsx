@@ -11,6 +11,7 @@ import Favorites from './pages/Favorites'
 import ElonOferta from './pages/ElonOferta'
 import CardInfo from './pages/CardInfo'
 import { useSelector } from 'react-redux'
+import VerifyEmailCode from './pages/VerifyEmailCode'
 
 function App() {
   const {user} = useSelector(state=>state.auth) // bu yerda haqiqiy autentifikatsiya holatini tekshirish kerak
@@ -43,8 +44,6 @@ function App() {
   images: [
     "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg?auto=compress&cs=tinysrgb&w=800",
     "https://images.pexels.com/photos/8460153/pexels-photo-8460153.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg?auto=compress&cs=tinysrgb&w=800",
     "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg?auto=compress&cs=tinysrgb&w=800",
     "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg?auto=compress&cs=tinysrgb&w=800",
   ],
@@ -80,6 +79,10 @@ function App() {
     {
       path: '/register',
       element: user ? <Navigate to={'/'} /> : <Register />,
+    },
+    {
+      path: '/verify',
+      element: user ? <Navigate to={'/'} /> : <VerifyEmailCode />,
     },
     {
       path: '/oferta',

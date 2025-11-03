@@ -50,15 +50,15 @@ const CardInfo = ({
         {/* LEFT & CENTER SIDE */}
         <div className="space-y-6 lg:col-span-2">
           {/* IMAGE CARD */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8">
+          <div className="round border border-gray-200 bg-white p-5  sm:p-8">
             <div className="flex flex-col gap-2 md:flex-row">
               {/* Thumbnails */}
               {images.length > 1 && (
-                <div className="relative flex gap-2 md:w-1/4 md:flex-col md:items-center">
+                <div className="relative flex gap-2 md:w-1/8 md:flex-col md:items-center">
                   <Swiper
                     direction="vertical"
-                    slidesPerView={3}
-                    spaceBetween={10}
+                    slidesPerView={4}
+                    spaceBetween={20}
                     onInit={(swiper) => {
                       swiper.params.navigation.prevEl = prevRef.current
                       swiper.params.navigation.nextEl = nextRef.current
@@ -66,14 +66,14 @@ const CardInfo = ({
                       swiper.navigation.update()
                     }}
                     modules={[Navigation]}
-                    className="h-72"
+                    className="h-96"
                   >
                     {images.map((img, idx) => (
                       <SwiperSlide key={idx}>
                         <img
                           src={img}
                           onClick={() => setActiveImage(img)}
-                          className={`h-24 w-24 cursor-pointer rounded-lg border object-cover transition ${
+                          className={`h-20 w-24 cursor-pointer rounded-lg border object-cover transition ${
                             activeImage === img
                               ? 'border-[#06b18f] ring-2 ring-[#06b18f]'
                               : 'border-gray-200 hover:opacity-80'
@@ -83,22 +83,7 @@ const CardInfo = ({
                     ))}
                   </Swiper>
 
-                  {images.length > 3 && (
-                    <>
-                      <button
-                        ref={prevRef}
-                        className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full border border-[#06b18f] bg-white p-1 text-[#06b18f] transition hover:bg-[#06b18f] hover:text-white"
-                      >
-                        ↑
-                      </button>
-                      <button
-                        ref={nextRef}
-                        className="absolute -bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-[#06b18f] bg-white p-1 text-[#06b18f] transition hover:bg-[#06b18f] hover:text-white"
-                      >
-                        ↓
-                      </button>
-                    </>
-                  )}
+                  
                 </div>
               )}
 
@@ -123,7 +108,7 @@ const CardInfo = ({
           </div>
 
           {/* DESCRIPTION CARD */}
-          <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="space-y-6 border border-gray-200 bg p-6">
             {/* Title & Price */}
             <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <h1 className="text-2xl font-semibold text-gray-900 sm:text-3xl">{title}</h1>
@@ -229,15 +214,15 @@ const CardInfo = ({
           </div>
 
           <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-            <h3 className="mb-2 text-lg font-semibold">O‘xshash e’lonlar</h3>
-            <p className="text-sm text-gray-500">Bu joyda o‘xshash e’lonlar joylashtiriladi.</p>
+            <h3 className="mb-2 text-lg font-semibold">Joylashuv</h3>
+            <p className="text-sm text-gray-500">google maps.</p>
           </div>
         </aside>
       </div>
 
       {/* FULLSCREEN IMAGE VIEW */}
       {isFullscreen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
+        <div className="fixed inset-0 z-[300000000000000] flex items-center justify-center bg-black/90 p-4">
           <button
             className="absolute top-5 right-5 text-3xl text-white hover:text-gray-300"
             onClick={() => setIsFullscreen(false)}

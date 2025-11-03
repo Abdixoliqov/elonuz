@@ -5,7 +5,9 @@ import Footer from "../components/footer/Footer";
 function MainLayout() {
     return ( 
         <div>
-            <Navbar />
+            <div className="pt-16">
+                <Navbar />
+            </div>
             <main>
                 <Outlet />
             </main>
